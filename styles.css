@@ -1,0 +1,372 @@
+/* ==================================== */
+/* 顏色變數與響應式設定 */
+/* ==================================== */
+:root {
+    /* 顏色變數 - 您可以在此修改顏色 */
+    --color-primary: #2a9d8f;       /* 主題色（柔和的青藍色，已修改顏色） */
+    --color-secondary: #e9c46a;     /* 次要強調色（暖黃色） */
+    --color-background: #f4f6f8;    /* 輕微的米白色背景 */
+    --color-text-dark: #264653;     /* 深色文字 */
+    --color-text-light: #ffffff;    /* 淺色文字 */
+    --color-border: #cccccc;        /* 邊框顏色 */
+
+    /* 字體大小變數 - 實現流式排版 (Fluid Typography) */
+    /* 使用 clamp() 讓字體大小隨視窗寬度平滑縮放 */
+    --font-size-base: 1rem;
+    --font-size-h2: clamp(1.8rem, 5vw, 2.5rem); 
+    --font-size-h3: clamp(1.4rem, 4vw, 2rem); 
+
+    /* 邊距與填充變數 */
+    --spacing-default: 1.5rem;
+}
+
+/* ==================================== */
+/* 通用樣式與 Reset */
+/* ==================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    line-height: 1.6;
+    color: var(--color-text-dark);
+    background-color: var(--color-background);
+    font-size: var(--font-size-base); /* 基礎字體大小 */
+}
+
+a {
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+a:hover {
+    color: var(--color-secondary);
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px; /* 限制最大寬度 */
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+h1, h2, h3 {
+    margin-bottom: 0.8em;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+h1 {
+    font-size: clamp(2.5rem, 8vw, 3.5rem); /* H1 使用更大的流式字體 */
+    color: var(--color-text-light);
+}
+
+h2 {
+    font-size: var(--font-size-h2);
+    border-bottom: 3px solid var(--color-secondary);
+    padding-bottom: 0.3em;
+}
+
+h3 {
+    font-size: var(--font-size-h3);
+}
+
+hr {
+    border: none;
+    border-top: 1px solid var(--color-border);
+    margin: calc(var(--spacing-default) * 2) 0;
+}
+
+/* ==================================== */
+/* Header 樣式 */
+/* ==================================== */
+.site-header {
+    background-color: var(--color-primary);
+    color: var(--color-text-light);
+    padding: 3rem 0 1rem 0;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.tagline {
+    font-size: 1.2rem;
+    font-weight: 300;
+    margin-top: 0.5rem;
+}
+
+/* ==================================== */
+/* Navigation 樣式 (頂部導覽列 RWD) */
+/* ==================================== */
+.main-nav {
+    background-color: var(--color-text-dark); /* 導航欄使用深色背景 */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 0.5rem 0;
+}
+
+.nav-content {
+    display: flex;
+    justify-content: center; /* 導航鏈結居中 */
+    flex-wrap: wrap; /* 啟用 RWD 換行，在小螢幕上可以自動換行 */
+    gap: 1rem;
+}
+
+.main-nav a {
+    color: var(--color-background);
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    font-size: clamp(0.85rem, 2.5vw, 1rem); /* 導航字體也隨視窗縮放 */
+}
+
+.main-nav a:hover {
+    background-color: var(--color-primary);
+    color: var(--color-text-light);
+}
+
+/* ==================================== */
+/* 內容區塊樣式 */
+/* ==================================== */
+.content-section {
+    padding: calc(var(--spacing-default) * 2) 0;
+}
+
+/* 學習小貼士 */
+.tip-block {
+    background-color: var(--color-secondary);
+    color: var(--color-text-dark);
+    padding: var(--spacing-default);
+    margin: var(--spacing-default) 0;
+    border-left: 5px solid var(--color-primary);
+    border-radius: 5px;
+}
+
+.tip-block h3 {
+    margin-bottom: 0.5rem;
+}
+
+/* 關於我 RWD */
+.profile-card {
+    display: flex;
+    gap: var(--spacing-default);
+    align-items: flex-start;
+    margin-top: var(--spacing-default);
+}
+
+.profile-img {
+    /* 物件大小會隨 RWD 調整，見下方 media query */
+    width: 150px; 
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid var(--color-primary);
+    flex-shrink: 0;
+}
+
+.profile-info hr {
+    margin: 0.5rem 0;
+    border-color: #eee;
+}
+
+/* 表格樣式 */
+.table-container {
+    overflow-x: auto; /* 讓表格在小螢幕上可以橫向滾動 */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: var(--spacing-default);
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--color-border);
+}
+
+th {
+    background-color: var(--color-primary);
+    color: var(--color-text-light);
+    font-weight: 600;
+}
+
+tr:nth-child(even) {
+    background-color: #eaf1f7; /* 斑馬紋效果 */
+}
+
+/* 圖片畫廊 RWD */
+.image-gallery {
+    /* 使用 grid 讓圖片自動適應欄位數量 */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+    gap: var(--spacing-default);
+    margin-top: var(--spacing-default);
+}
+
+.image-gallery figure {
+    background: #ffffff;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.image-gallery img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+}
+
+.image-gallery figcaption {
+    font-style: italic;
+    color: #555;
+    padding-top: 5px;
+}
+
+/* 更多資訊 */
+.cta-tip {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--color-primary);
+    margin-bottom: 0.5rem;
+}
+
+/* ==================================== */
+/* Footer 樣式 */
+/* ==================================== */
+.site-footer {
+    background-color: var(--color-text-dark);
+    color: var(--color-background);
+    text-align: center;
+    padding: var(--spacing-default) 0;
+    font-size: 0.9rem;
+}
+
+.site-footer a {
+    color: var(--color-secondary);
+}
+
+/* ==================================== */
+/* 響應式設計 (RWD) - 中型設備 (平板電腦及以上) */
+/* ==================================== */
+@media (max-width: 768px) {
+    /* 調整間距 */
+    :root {
+        --spacing-default: 1rem;
+    }
+    
+    /* 關於我：頭像和文字改為垂直堆疊 */
+    .profile-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    /* 調整頭像大小 */
+    .profile-img {
+        width: 120px;
+        height: 120px;
+    }
+
+    .profile-info h3 {
+        margin-top: 1rem;
+    }
+}
+
+/* ==================================== */
+/* 響應式設計 (RWD) - 小型設備 (手機) */
+/* ==================================== */
+@media (max-width: 480px) {
+    /* 更緊湊的標題 */
+    .site-header {
+        padding: 2rem 0 1rem 0;
+    }
+
+    /* 導航欄項目在手機上會自動換行，保持了可用性 */
+    .main-nav a {
+        padding: 0.4rem 0.8rem;
+    }
+
+    /* 移除圖片畫廊的邊距和陰影，使其更流暢 */
+    .image-gallery figure {
+        padding: 0;
+        box-shadow: none;
+    }
+}
+
+/* ==================================== */
+/* 地圖區塊樣式 (RWD) */
+/* ==================================== */
+.map-location {
+    padding-top: var(--spacing-default); /* 頂部間距可以少一點 */
+}
+
+.map-container {
+    width: 100%;
+    /* 確保地圖的 iframe 填滿容器，並控制其長寬比 */
+    height: 450px; 
+    overflow: hidden;
+    margin-top: var(--spacing-default);
+    border-radius: 8px; /* 增加圓角讓地圖看起來更美觀 */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.map-container iframe {
+    /* 確保 iframe 總是填滿容器 */
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* 響應式調整：在小螢幕上可以縮短地圖高度 */
+@media (max-width: 768px) {
+    .map-container {
+        height: 300px; /* 手機上高度較低 */
+    }
+}
+
+/* ==================================== */
+/* 音訊播放器樣式 (RWD) */
+/* ==================================== */
+.audio-player-container {
+    margin-top: var(--spacing-default);
+    background-color: #ffffff;
+    padding: var(--spacing-default);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 讓播放器居中 */
+    max-width: 600px; /* 限制最大寬度，避免過寬 */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.audio-player-container audio {
+    width: 100%; /* 讓音訊播放器填滿容器寬度 */
+    max-width: 550px; /* 稍微小於容器 */
+    margin-bottom: 0.8rem;
+}
+
+.audio-caption {
+    font-style: italic;
+    color: #555;
+    font-size: 0.95rem;
+    text-align: center;
+}
+
+/* 響應式調整 */
+@media (max-width: 480px) {
+    .audio-player-container {
+        padding: calc(var(--spacing-default) * 0.75);
+    }
+}
